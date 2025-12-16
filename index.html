@@ -4,15 +4,18 @@
 <meta charset="UTF-8">
 <title>Audio Book Builder - By Titan Business Pros</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="https://github.com/TitanBusinessPros/Audio-Book-Maker/raw/main/AB-Favicon.png">
 
 <style>
 html, body {
   margin: 0;
   padding: 0;
-  background: black;
+  background: url('https://github.com/TitanBusinessPros/Audio-Book-Maker/raw/main/AB-Background.png') no-repeat center center fixed;
+  background-size: cover;
   font-family: system-ui, Arial, sans-serif;
   color: white;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 #builder {
@@ -20,11 +23,21 @@ html, body {
   margin: 0 auto;
   padding: 20px;
   display: block;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-#builder h1 {
+.logo-container {
   text-align: center;
-  color: #4CAF50;
+  margin-bottom: 30px;
+}
+
+.logo-container img {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
 }
 
 .instructions {
@@ -168,14 +181,49 @@ label {
   display: inline-block;
   margin: 0 10px;
 }
+
+footer {
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+footer a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.footer-content p {
+  margin: 10px 0;
+}
+
+.social-icon {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
 </style>
 </head>
 
 <body>
 
 <div id="builder">
-  <h1>🎬 Audio Book Builder</h1>
-  <p style="text-align:center; color: #4CAF50; font-size: 18px;">FREE Tool by Titan Business Pros</p>
+  <div class="logo-container">
+    <img src="https://github.com/TitanBusinessPros/Audio-Book-Maker/raw/main/AB-Logo-2.png" alt="Audio Book Builder">
+  </div>
+  <p style="text-align:center; color: #4CAF50; font-size: 18px; margin-top: -15px;">FREE Tool by Titan Business Pros</p>
   
   <div class="instructions">
     <h3>📖 How to Use This Free Tool:</h3>
@@ -208,9 +256,6 @@ label {
     <h3>🎬 Welcome Screen Setup</h3>
     <label><strong>Welcome Background (Image or Video URL):</strong></label>
     <input type="text" id="welcomeBg" placeholder="Paste raw image link (.jpg, .png) OR video link (.mp4)">
-    
-    <label><strong>Welcome Background Music URL (Optional):</strong></label>
-    <input type="text" id="welcomeMusic" placeholder="Paste raw MP3 link">
   </div>
 
   <label for="numChapters"><strong>Number of Chapters:</strong></label>
@@ -235,9 +280,26 @@ label {
   <button class="secondary" onclick="exportHTML()">📥 Export to HTML</button>
   <br>
   <button class="help" onclick="window.open('https://titanbusinesspros.github.io/Titan-Software-Guild-/', '_blank')">📚 Teach Me How To Create My Raw Links</button>
+  <button class="help" onclick="window.open('https://titanbusinesspros.github.io/Titan-Software-Guild-/', '_blank')">🚀 Never Pay For Websites Again</button>
+  <br>
+  <button class="help" onclick="window.open('https://titanbusinesspros.github.io/Titan-Software-Guild-/', '_blank')">🌐 How To Do A Custom Domain</button>
+  <button class="help" onclick="window.open('https://www.gameville.games', '_blank')">🎮 Take Me To Gameville</button>
   <br><br>
 
 </div>
+
+<footer>
+  <div class="footer-content">
+    <p><strong>© 2025-2026 Titan Business Pros - All Rights Reserved</strong></p>
+    <p>📞 <a href="tel:405-998-7979">405-998-7979</a> | 🌐 <a href="https://www.okiewebsiteguy.com" target="_blank">www.okiewebsiteguy.com</a></p>
+    <p>📍 Oklahoma City, Oklahoma</p>
+    <p>
+      <a href="https://www.facebook.com/TitanBusinessPros/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" class="social-icon">
+      </a>
+    </p>
+  </div>
+</footer>
 
 <div id="app">
   <div id="bg"></div>
@@ -358,7 +420,6 @@ function autoSave() {
     bookTitle: document.getElementById("bookTitle").value,
     voice: document.getElementById("voiceSelect").value,
     welcomeBg: document.getElementById("welcomeBg").value,
-    welcomeMusic: document.getElementById("welcomeMusic").value,
     chapters: []
   };
   
@@ -390,7 +451,6 @@ function autoLoad() {
   const data = JSON.parse(saved);
   document.getElementById("bookTitle").value = data.bookTitle || "";
   document.getElementById("welcomeBg").value = data.welcomeBg || "";
-  document.getElementById("welcomeMusic").value = data.welcomeMusic || "";
   
   if (data.voice) {
     document.getElementById("voiceSelect").value = data.voice;
@@ -413,7 +473,6 @@ function autoLoad() {
 document.getElementById("bookTitle").addEventListener("input", autoSave);
 document.getElementById("voiceSelect").addEventListener("change", autoSave);
 document.getElementById("welcomeBg").addEventListener("input", autoSave);
-document.getElementById("welcomeMusic").addEventListener("input", autoSave);
 
 function startAudiobook() {
   autoSave();
@@ -528,7 +587,6 @@ function exportHTML() {
   const title = document.getElementById("bookTitle").value;
   const voiceName = document.getElementById("voiceSelect").value;
   const welcomeBg = document.getElementById("welcomeBg").value;
-  const welcomeMusic = document.getElementById("welcomeMusic").value;
   
   let scenesData = "";
   for (let i = 1; i <= num; i++) {
@@ -584,7 +642,6 @@ input[type="range"] { vertical-align: middle; }
 const chapters = [
 ${scenesData}];
 const welcomeBg = "${welcomeBg}";
-const welcomeMusic = "${welcomeMusic}";
 let i = 0, isPaused = false, currentUtterance = null;
 const bg = document.getElementById("bg"), bgVideo = document.getElementById("bgVideo");
 const music = document.getElementById("music"), musicVol = document.getElementById("musicVol");
@@ -607,18 +664,6 @@ function setupWelcomeScreen() {
     bgVideo.style.display = "none";
     bg.style.backgroundImage = \`url('\${welcomeBg}')\`;
   }
-  
-  if (welcomeMusic) {
-    music.src = welcomeMusic;
-    music.volume = parseFloat(musicVol.value);
-    music.play().catch(e => {
-      console.log("Audio autoplay blocked, will play on user interaction");
-      // Add one-time click listener to start music
-      document.getElementById("card").addEventListener("click", function() {
-        music.play().catch(err => console.log("Music play error:", err));
-      }, { once: true });
-    });
-  }
 }
 
 setupWelcomeScreen();
@@ -630,10 +675,6 @@ musicVol.addEventListener("input", function() {
 // Voice volume changes take effect on next chapter to avoid interruption
 
 function start() {
-  // Ensure music plays when user clicks start (handles autoplay restrictions)
-  if (music.paused && welcomeMusic) {
-    music.play().catch(e => console.log("Audio play failed:", e));
-  }
   document.getElementById("start").style.display = "none";
   document.getElementById("controls").style.display = "block";
   play();
@@ -720,4 +761,3 @@ window.onload = () => {
 };
 </script>
 </body>
-</html>

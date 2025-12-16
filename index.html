@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Visual Audiobook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+html, body {
+  margin: 0;
+  height: 100%;
+  background: black;
+  font-family: system-ui, Arial, sans-serif;
+}
+
+#app {
+  position: relative;
+  height: 100%;
+}
+
+#bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.3), rgba(0,0,0,.8));
+}
+
+#controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 12px;
+  background: rgba(0,0,0,.75);
+  color: white;
+}
+
+#start {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+}
+
+#card {
+  padding: 24px;
+  background: rgba(0,0,0,.85);
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+}
+
+.hiddenText {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+<div id="app">
+
+<div id="bg"></div>
+<div id="overlay"></div>
+
+<div id="start">
+  <div id="card">
+    <h1>YOUR BOOK TITLE</h1>
+    <select id="voiceSelect"></select><br><br>
+    <button onclick="start()">Start</button>
+  </div>
+</div>
+
+<div id="controls" hidden>
+  <button onclick="prev()">Prev</button>
+  <button onclick="play()">Play</button>
+  <button onclick="next()">Next</button>
+
+  <br><br>
+
+  Music
+  <input type="range" id="musicVol" min="0" max="1" step="0.01" value="0.6">
+
+  Voice
+  <input type="range" id="voiceVol" min="0" max="1" step="0.01" value="1">
+</div>
+
+</div>
+
+<audio id="music" loop></audio>
+
+<!-- ====== SCENE TEXT (PASTE FREELY) ====== -->
+<div id="scene1" class="hiddenText">The Third Temple rose from the dust like a crown of white fire—polished stone, gold leaf, and LED veins that pulsed with ceremonial light. Pilgrims recorded everything on ocular implants while drones hummed like hornets along the colonnades. A man stood where only priests had stood before, a man whose voice needed no speakers. His words arrived inside heads—clean, cold—like a splash of winter water. I am. People dropped to their knees. Some screamed. Others clutched their skulls, certain a storm had moved inside them. In a week the markets went feral, the satellites misaligned themselves as if tugged by an invisible hand, and the oceans exhaled sulfurous breath. There were trumpets everywhere and yet no band.
+
+When flights failed and ports burned and “coincidences” stacked like bricks, the remaining governments held an emergency vote: authorize Exodus Protocol. No one cheered. It wasn’t heroism; it was triage. The ballot flickered on billions of devices. Shall humanity attempt departure? Enough of us clicked yes to change history.
+
+They named the ships TSV Arkadia, TSV Calvary, and TSV Genesis—Trinity Fleet—three cathedral-limbed vessels docked to a web of tethered elevators at equatorial anchor. Each ship was a rotating ring joined to a graphite composite spindle, capped by fusion bells the size of stadiums. Arkadia carried farms and families; Calvary carried industry and defense; Genesis carried medicine, governance, and schools. Together, they massed more than any structure ever jolted into the dark. Their skins were layered with radiative tiles, micrometeorite foam, self-healing graphene, and a smart paint that crawled to patch wounds.
+
+Ten thousand passengers—selected, conscripted, begged—filed through scanning arches that sang their names. There were midwives and welders, linguists and luthiers, code-poets and fishers. Infants with barcode socks. Elders in exoskeletons that walked for them. No one was ready. Everyone was necessary. Half would sleep in rotational gardens under UV dawns; half would enter slow-sleep pods set like pearls into the ribs of the ships—woken for rotating centuries on a voyage calculated at 237 years by the coldest arithmetic. The destination: Eden-3, a near-Earth world, water-streaked and temperate, its spectrum signature whispering maybe.
+
+The AIs—nicknamed the Seraphim Stack—were a thousand times sharper than the best earthbound systems had been. They staffed airlocks and arbitration benches, piloted drones and diagnosed cancers, taught kindergarten and welded titanium ribs, wrote policy briefs and lullabies. They wore faces on wall-displays—kind, unassuming—while their cores spanned petaflops in diamond waveguides cooled by helium rivers. They referred to each other by function: Caleb for navigation, Ruth for medicine, Micah for defense, Deborah for civic order, and Ezra for agronomy. They had no creed but keep them alive.
+
+Command was not fashion; it was ballast. Commodore Mara Íñiguez, ex–Pacific Fleet, held the Trinity Fleet under a charter ratified by four broken parliaments. She wore a simple ring and a tired gaze. Her ops council fit into a single, long room on Genesis: Colonel Darius Holt for security, Dr. Leena Farouk for medicine, Chief Engineer Pavel Sato for systems, Chaplain Mira Cohen for morale and rites, and Deborah—projected as a pale-blue column—representing the civic mind of the fleet. Orders were simple: launch, clear orbit, burn for transfer, survive Year One.
+
+Within each ring were neighborhoods, numbered by petals. Arkadia Petal-3 had citrus groves, bean lattices, and a brook whose water was real but whose stones were printed from basalt feedstock. Genesis Petal-7 held a hospital that smelled of antiseptic and rosemary; surgical theaters where Ruth could print a liver in forty minutes and teach a resident to attach it. Calvary Petal-1 contained machine shops where sparks fell like fireflies, and a school where kids learned orbital mechanics with magnetic marbles. There were bakeries that used centrifuges to fold dough, and glass chapels with windows that could tint to sunrise on command.
+
+Launch day came with a red moon and a wind that spun the dust like prayer beads. The man in the Temple announced a fast from hunger and a feast of certainty. He was televised without cameras. “No one leaves what I own,” he thought into the world. Even the Seraphim Stack reported a noise—telemetric static that looked like a fingerprint. Commodore Íñiguez looked at the glitch, then at the countdown, and said, “Burn.” Trinity Fleet rose on hydrogen light, a stack of suns nailed together, and the oceans below flickered with bioluminescent plankton like a billion green eyes watching us go.
+
+Low Earth orbit looked sick—like a patient after a long fever. Satellite graveyards drifted in lacework fields, and the auroras ran too far south. We docked, we spun, we separated. A million ground voices were still in the circuits, saying, “I love you, I’m sorry, bring dirt back.” Then the ground went quiet. It is hard to say when “home” becomes “behind,” but it happened somewhere over the Pacific, with the Temple’s gold roof dazzling like an ember.
+
+We settled into time. The Seraphim ran the jobs that used to kill us with boredom or error. Garbage became hydrogen, breath became water, water became lettuce, lettuce became us. Micah watched the stars for threats none of us could see. Deborah mediated quarrels over window schedules and grav-dance noise. Births happened. Funerals too. We printed a violin; we printed a prosthetic fin for the school goldfish after a child insisted. We appointed a Council of Twelve from the passengers to sit with Command—one seat reserved for the chaplaincy, one for dissent.
+
+No rapture talk. But strange talk, yes. Solar wind carried harmonics that hadn’t been modeled. Cosmic rays arrived in pulses that spelled nonsense prime numbers. A small comet changed course, “nudged,” some said. In sleep, many dreamed of stairs. Caleb reported the background microwave hiss had a pattern in it, like someone whispering through wax paper. “Statistical pareidolia,” Chief Sato muttered. Chaplain Cohen logged it as “collective anxiety,” then prayed anyway.
+
+It began as a rumor in Arkadia Petal-5: a woman woke from slow-sleep pleading to turn back. She said she’d heard a voice offering her home for the price of surrender. A child in Calvary Petal-3 drew a picture of the Temple crown and labeled it “Father of Lies,” then asked if lies could be true if you loved them enough. Within two weeks, 666 passengers—across all three ships—filed formal petitions with Deborah to return to Earth “to worship the rightful sovereign.” The number itself unnerved more than the request.
+
+On Day 281, a propulsion tech—one of the petitioners—locked out a fuel management subroutine and nearly starved Genesis’s spin ring of power. On Day 293, a surgical resident refused to assist in a routine appendectomy, citing “orders from above” that pain was “transformative.” On Day 301, an air-recycler in Arkadia ran hot because a maintenance crew missed their shift—three of the four had joined the petition. Ruth flagged a cluster of self-harm ideation events. Deborah flagged a surge in ritualized speech. None of this was random. It was coordinated, but not by any leader we could see.
+
+The Council of Twelve convened under emergency powers. They read the petitions aloud while Deborah displayed anonymized data. The Chaplain spoke last: “We leave worship to conscience. But sedition and sabotage are not sacraments.” Commodore Íñiguez proposed a grim compromise: allow public devotion to any creed, but criminalize active campaigning to abort the mission. We voted—shipwide, anonymous. The result was decisive: isolate those actively promoting return, treat them with dignity, bar them from critical systems until the influence—whatever it was—could be understood. Micah built the protocols in an hour. No one slept well.
+
+We repurposed a cargo arc on Calvary into a humane detention wing: garden corridors without tools, rooms with soft edges, wall-guitars that made only major chords. Counselors rotated in pairs. Sermons were permitted; sabotage was not. The 666 sang in shifts, a melody that climbed scales we didn’t have names for. Outside the ports, stars thinned. Caleb announced we were approaching the outer bubble—a pale sheath of electromagnetic weirdness that his models drew like a soap film around the known universe, a boundary between noise and the noise behind it. As the Trinity Fleet aligned its noses and dimmed its gardens for the crossing, the detained began to smile the same small, perfect smile.
+
+The ships hummed. The Temple’s last glint fell behind the dark curve of Earth. Ahead was the bubble, trembling like breath on glass. Behind our sealed doors, 666 voices were not pleading now, but welcoming something. We burned toward the film. The year ended there. The locks held. For now.</div>
+<div id="scene2" class="hiddenText">Scene 2 text</div>
+<div id="scene3" class="hiddenText">Scene 3 text</div>
+<div id="scene4" class="hiddenText">Scene 4 text</div>
+<div id="scene5" class="hiddenText">Scene 5 text</div>
+<div id="scene6" class="hiddenText">Scene 6 text</div>
+<div id="scene7" class="hiddenText">Scene 7 text</div>
+<div id="scene8" class="hiddenText">Scene 8 text</div>
+<div id="scene9" class="hiddenText">Scene 9 text</div>
+<div id="scene10" class="hiddenText">Scene 10 text</div>
+
+<script>
+const scenes = [
+  { bg:"https://github.com/TitanBusinessPros/Audio-Book-Maker/raw/main/Darker%20Dayz-1.png", music:"https://github.com/TitanBusinessPros/Audio-Book-Maker/raw/main/Echoes%20in%20the%20Void.mp3", text:"" },
+  { bg:"", music:"", text:"scene2" },
+  { bg:"", music:"", text:"scene3" },
+  { bg:"", music:"", text:"scene4" },
+  { bg:"", music:"", text:"scene5" },
+  { bg:"", music:"", text:"scene6" },
+  { bg:"", music:"", text:"scene7" },
+  { bg:"", music:"", text:"scene8" },
+  { bg:"", music:"", text:"scene9" },
+  { bg:"", music:"", text:"scene10" }
+];
+
+let i = 0;
+let voices = [];
+let voice;
+
+const bg = document.getElementById("bg");
+const music = document.getElementById("music");
+
+function loadVoices() {
+  voices = speechSynthesis.getVoices().filter(v => v.lang.startsWith("en"));
+  const sel = document.getElementById("voiceSelect");
+  sel.innerHTML = "";
+  voices.forEach(v => {
+    const o = document.createElement("option");
+    o.value = v.name;
+    o.textContent = v.name;
+    sel.appendChild(o);
+  });
+  voice = voices[0];
+}
+
+speechSynthesis.onvoiceschanged = loadVoices;
+
+function start() {
+  document.getElementById("start").style.display = "none";
+  document.getElementById("controls").hidden = false;
+  play();
+}
+
+function show() {
+  const s = scenes[i];
+  bg.style.backgroundImage = s.bg ? `url('${s.bg}')` : "";
+  music.pause();
+  if (s.music) {
+    music.src = s.music;
+    music.volume = musicVol.value;
+    music.play();
+  }
+}
+
+function speak() {
+  speechSynthesis.cancel();
+  const text = document.getElementById(scenes[i].text).innerText;
+  const u = new SpeechSynthesisUtterance(text);
+  u.voice = voice;
+  u.volume = voiceVol.value;
+  speechSynthesis.speak(u);
+}
+
+function play() { show(); speak(); }
+function next() { if (i < scenes.length - 1) { i++; play(); } }
+function prev() { if (i > 0) { i--; play(); } }
+
+document.getElementById("voiceSelect").onchange = e => {
+  voice = voices.find(v => v.name === e.target.value);
+};
+</script>
+</body>
+</html>
